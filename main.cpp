@@ -1,8 +1,9 @@
 #include <iostream>
-#include <string>
 #include <random>
 #include <time.h>
+
 using namespace std;
+#include <string>
 
 
 void sumatoria_recu(int num,int i,double z) {
@@ -26,12 +27,12 @@ void sumatoria_recu(int num,int i,double z) {
 // 
 
 
-void orden_arre(int arr[],bool band , int tam ){
+void orden_arre(int arr[],bool band, int tam  ){
     
-    if( !band ) {
+    if( band == true ) {
         int aus=0;
         band = false;
-        for(int j=0; j<tam; j++) {
+        for(int j=0; j<tam-1; j++) {
             if(arr[j] > arr[j+1]) {
                 aus = arr[j];
                 arr[j]=arr[j+1];
@@ -43,7 +44,7 @@ void orden_arre(int arr[],bool band , int tam ){
         orden_arre(arr,band, tam);
     } else {
         for(int i=0; i<tam; i++) {
-            cout<<"["<<arr[i]<<"] ";
+            cout<<"["<<arr[i]<<"]";
         }
     }
 }
@@ -73,46 +74,145 @@ int main(){
 
 		switch (opc)
 		{
-		case 1:
-
-			break;
 		case 2:
+		{
 		
 			
 	    int ar[20];
+              cout<< "Desorde= "; 
+              for(int i=0; i<20;i++){
+              	ar[i] = 1+(rand()%90);
+              	cout<<"["<<ar[i]<<"]"; 
+			  }
               
-                for(int i = 0; i < 20; i++) {
-                    ar[i] = 1 + (rand() % 98) ;
-                }
-            
+              cout<<'\n';
               
-                cout<<endl<<"Orden="<<endl;
+              
+                cout<<"Orden=";
                 orden_arre(ar,true, 20);
-                cout<<endl<<endl;
-		
-   cout<< "Origen y desorden= "<<endl; 
-    for(int i = 0; i < 20; i++) {
-                    cout<< "["<<ar[i] <<"] ";
-                }
-  
-  
+            }
 			break;
-		case 3:
+			
+			
+		
+		case 3: {
+		
+			
+		
 		  int uno=0;
 		  int dos=1;
 		                  double resp=0;
 
-                cout<<"Ingrese el valor de x:";
+                cout<<"ponga el valor de x:";
                 cin>>uno;
                 while(uno <=0) {
                     cout<<"Ingrese un valor mayor que 0:";
                     cin>>uno;
                 }
                 sumatoria_recu(uno,dos,resp);
+            }
+			
+			break; 
+			
+			case 1:
+				{
+
+			cout << "Escriba la cadena: ";
+								string cadena;
+
+			cin >> cadena;
+			int resultado = 0;
+			
+			for (int i = 0; i < cadena.length(); i++){
+
+				if (cadena[i] == 'A' && i == 1){
+					
+						resultado = 0;
+						if(cadena[i - 1] == '0' && cadena[i + 3] == '1'){
+						resultado = 0;
+
+						} else {
+							resultado = 1;
+						}
+							if(cadena[i - 1] == '0' && cadena[i + 3] == '0'){
+						resultado = 0;
+
+						} else {
+							resultado = 1;
+						}
+							if(cadena[i - 1] == '1' && cadena[i + 3] == '0'){
+										resultado = 0;
+							}
+								
+				
+                          
+						 else {
+					 resultado = 1;
+
+						}
+						
+					
+						
+					}
+				else if (cadena[i] == 'O' && i == 1){
+					if (resultado == '0' && cadena[i + 2] == '0'){											
+						resultado = 0;
+					}else{
+						resultado = 1;
+					}
+				}else if (cadena[i] == 'A'){
+					
+					
+					if(resultado == 1 && cadena[i + 3] == '0'){
+						resultado =0; 
+					} else {
+						resultado =1; 
+					} 
+					
+						if(resultado == 0 && cadena[i + 3] == '1'){
+						resultado =0; 
+					} else {
+						resultado =1; 
+					} 
+					
+						if(resultado == 0 && cadena[i + 3] == '0'){
+						resultado =0; 
+					} else {
+						resultado =1; 
+					} 
+					
+					
+					
+					
+				 if (cadena[i] == 'O'){
+					if (resultado == 0 && cadena[i + 2] == '0'){
+						resultado = 0;
+					}else{
+						resultado = 1;
+					}
+				}
+			}
 			
 			
+				}
+				
+					if (resultado ==0){
+				cout << "FALSO" << endl;
+			}else{
+				cout << "VERDADERO" << endl;
+			}
+				
+				
+				break; 
 			
-			break;
+			}
+
+		
+			
+			
+		
+		
+			
 		}
 		
 }
