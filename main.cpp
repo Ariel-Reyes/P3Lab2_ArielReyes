@@ -1,68 +1,70 @@
 #include <iostream>
 #include <random>
 #include <time.h>
-
-using namespace std;
 #include <string>
 
+using namespace std;
 
-void sumatoria_recu(int num,int i,double z) {
-    if (i<=num) {
-        float parte_arriba = 0;  
-		float parte_abajo = 0;
-        float div=0;
-        parte_arriba = (2*i)-1;
-        parte_abajo=i*(i+1);
-        div = (parte_arriba) / (parte_abajo);
-        z = z+div;
-        i++;
-        sumatoria_recu(num,i,z);
-    } else if(i=num) {
-        cout<<" Resp//  "<<z<<'\n';
-    }
+// Ariel Fernando Reyes ---- Castellanos 11921023
+void sumatoria_recu(int num, int i, double z) // creacion del metodo recursivo para la sumatoria 
+{
+	if (num>=i)
+	{
+		double parte_arriba = 0; 
+		double parte_abajo = 0;
+		double div = 0;
+		// las variables de arriba son para las partes de la division (p1/p2)
+		parte_arriba = (2 * i) - 1;
+		parte_abajo = i * (i + 1);
+		div = (parte_arriba) / (parte_abajo); // se efectua la division
+		z = z + div; // acumulan y suman las respuestas 
+		i++;
+		sumatoria_recu(num, i, z); // se hace el metodo recursivo
+	}
+	else if (i >= num) // y cuando i llegue al valor de m se parara 
+	{
+		cout << " Resp//  " << z << '\n'; // se imprime 
+	}
+}
+//
 
+void orden_arre(int arr[], bool band, int tam) // metodo recursivo para ordenar el arreglo 
+{
 
-
-} 
-// 
-
-
-void orden_arre(int arr[],bool band, int tam  ){
-    
-    if( band == true ) {
-        int aus=0;
-        band = false;
-        for(int j=0; j<tam-1; j++) {
-            if(arr[j] > arr[j+1]) {
-                aus = arr[j];
-                arr[j]=arr[j+1];
-                arr[j+1]=aus;
-                band = true;
-            }
-        }
-        //
-        orden_arre(arr,band, tam);
-    } else {
-        for(int i=0; i<tam; i++) {
-            cout<<"["<<arr[i]<<"]";
-        }
-    }
+	if (band ==true)  // usaremos una bandera para el metodo de ordenamiento
+	{
+		int aus = 0;
+		band = false; 
+		for (int j = 0; j < tam - 1; j++)
+		{
+			if (arr[j] > arr[j + 1]) // se ve que valor es mayor a cual y si lo es se cambia usando la variable de auxilio aus 
+			{
+				aus = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = aus;
+				band = true;
+			}
+		}
+		//
+		orden_arre(arr, band, tam);
+	}
+	else // el else es para cuando de recorrer se imprima 
+	{
+		for (int i = 0; i < tam; i++) 
+		{
+			cout << "{" << arr[i] << "}";
+		}
+	}
 }
 
-
-
-int main(){ 
-
-
+int main()
+{
+    cout<<'\n';
 	srand(time(NULL));
-
-
-
-
 
 	int opc = 1;
 
-	while (opc != 4)
+	while (opc != 4) // creacion del menu con respuesta de usuario 
 	{
 		cout << "............MENU............." << endl;
 		cout << "1................. Ejercicio 1 Tabla" << endl;
@@ -76,148 +78,155 @@ int main(){
 		{
 		case 2:
 		{
-		
-			
-	    int ar[20];
-              cout<< "Desorde= "; 
-              for(int i=0; i<20;i++){
-              	ar[i] = 1+(rand()%90);
-              	cout<<"["<<ar[i]<<"]"; 
-			  }
-              
-              cout<<'\n';
-              
-              
-                cout<<"Orden=";
-                orden_arre(ar,true, 20);
-            }
-			break;
-			
-			
-		
-		case 3: {
-		
-			
-		
-		  int uno=0;
-		  int dos=1;
-		                  double resp=0;
 
-                cout<<"ponga el valor de x:";
-                cin>>uno;
-                while(uno <=0) {
-                    cout<<"Ingrese un valor mayor que 0:";
-                    cin>>uno;
-                }
-                sumatoria_recu(uno,dos,resp);
-            }
-			
-			break; 
-			
-			case 1:
-				{
+			int ar[20];
+			cout << "Desorde= "; // llanamos e imprimimos la matriz con numeros aleatorios 
+			for (int i = 0; i < 20; i++)
+			{
+				ar[i] = 1 + (rand() % 90);
+				cout << "[" << ar[i] << "]";
+			}
+
+			cout << '\n';
+
+			cout << "Orden=";
+			orden_arre(ar, true, 20); // aca imprimimos el arreglo ordenado 
+		}
+		break;
+
+		case 3:
+		{
+
+			int uno = 0;
+			int dos = 1;
+			double resp = 0;
+
+			cout << "ponga el valor de x:";
+			cin >> uno; // el usuario ingresa el valor de 
+			while (uno <= 0) // validacion 
+			{
+				cout << "Ingrese un valor mayor que 0:";
+				cin >> uno;
+			}
+			sumatoria_recu(uno, dos, resp); // se imprime el resultado 
+		}
+
+		break;
+
+		case 1:
+		{
 
 			cout << "Escriba la cadena: ";
-								string cadena;
+			string cadena; 
 
 			cin >> cadena;
-			int resultado = 0;
-			
-			for (int i = 0; i < cadena.length(); i++){
+			int res = 0;
+			int tam; 
+			tam = cadena.length(); 
 
-				if (cadena[i] == 'A' && i == 1){
-					
-						resultado = 0;
-						if(cadena[i - 1] == '0' && cadena[i + 3] == '1'){
-						resultado = 0;
+			for (int i = 0; i < tam; i++){ // for para recorrer toda la cadena que el usuario ingrese 
+			/*Luego solo son puras validacion por segun la posicion de arreglo y lo que exita en el
+			y si en la posicion cadena[0] hay una 'A', y la posicion 3 cifras mayor que esa el resultado sera 0
+			*/
 
-						} else {
-							resultado = 1;
-						}
-							if(cadena[i - 1] == '0' && cadena[i + 3] == '0'){
-						resultado = 0;
+				if (cadena[i] == 'A' && i == 1)
+				{
 
-						} else {
-							resultado = 1;
-						}
-							if(cadena[i - 1] == '1' && cadena[i + 3] == '0'){
-										resultado = 0;
-							}
-								
-				
-                          
-						 else {
-					 resultado = 1;
-
-						}
-						
-					
-						
+					res = 0;
+					if (cadena[i - 1] == '0' && cadena[i + 3] == '1')
+					{
+						res = 0;
 					}
-				else if (cadena[i] == 'O' && i == 1){
-					if (resultado == '0' && cadena[i + 2] == '0'){											
-						resultado = 0;
-					}else{
-						resultado = 1;
+					else
+					{
+						res = 1;
 					}
-				}else if (cadena[i] == 'A'){
-					
-					
-					if(resultado == 1 && cadena[i + 3] == '0'){
-						resultado =0; 
-					} else {
-						resultado =1; 
-					} 
-					
-						if(resultado == 0 && cadena[i + 3] == '1'){
-						resultado =0; 
-					} else {
-						resultado =1; 
-					} 
-					
-						if(resultado == 0 && cadena[i + 3] == '0'){
-						resultado =0; 
-					} else {
-						resultado =1; 
-					} 
-					
-					
-					
-					
-				 if (cadena[i] == 'O'){
-					if (resultado == 0 && cadena[i + 2] == '0'){
-						resultado = 0;
-					}else{
-						resultado = 1;
+					if (cadena[i - 1] == '0' && cadena[i + 3] == '0')
+					{
+						res = 0;
+					}
+					else
+					{
+						res = 1;
+					}
+					if (cadena[i - 1] == '1' && cadena[i + 3] == '0')
+					{
+						res = 0;
+					}
+
+					else
+					{
+						res = 1;
+					}
+				}
+				else if (cadena[i] == 'O' && i == 1)
+				{
+					if (res == '0' && cadena[i + 2] == '0')
+					{
+						res = 0;
+					}
+					else
+					{
+						res = 1;
+					}
+				}
+				else if (cadena[i] == 'A')
+				{
+
+					if (res == 1 && cadena[i + 3] == '0')
+					{
+						res = 0;
+					}
+					else
+					{
+						res = 1;
+					}
+
+					if (res == 0 && cadena[i + 3] == '1')
+					{
+						res = 0;
+					}
+					else
+					{
+						res = 1;
+					}
+
+					if (res == 0 && cadena[i + 3] == '0')
+					{
+						res = 0;
+					}
+					else
+					{
+						res = 1;
+					}
+
+					if (cadena[i] == 'O')
+					{
+						if (res == 0 && cadena[i + 2] == '0')
+						{
+							res = 0;
+						}
+						else
+						{
+							res = 1;
+						}
 					}
 				}
 			}
-			
-			
-				}
-				
-					if (resultado ==0){
+
+			if (res == 0)
+			{
 				cout << "FALSO" << endl;
-			}else{
+			}
+			else
+			{
 				cout << "VERDADERO" << endl;
 			}
-				
-				
-				break; 
-			
-			}
 
-		
-			
-			
-		
-		
-			
+			break;
 		}
-		
+		}
+	}
+	return 0;
 }
-		return 0; 
-
-} 
-
 
